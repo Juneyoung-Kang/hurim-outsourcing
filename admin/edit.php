@@ -246,6 +246,11 @@
                       </div>
                   </div>
                 </div>
+                <form action="/include/multi.php" method="post">
+                    <button class="ui button red submit" tabindex="0" name="submit" type="submit">항목 삭제하기</button>
+                    <input type="hidden" name="cmd" value="7">
+                    <input type="hidden" name="value" value="<?php echo $list['value']?>">
+                </form> 
               </div>
             </div>
 

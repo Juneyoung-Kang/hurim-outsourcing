@@ -169,7 +169,6 @@
                                         <th>가로/세로 최소값</th>
                                         <th>품절 여부</th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -188,9 +187,6 @@
                                         <td><?php echo $list["stock_chk"];?></td>
                                         <td>
                                             <a href="edit.php?value=<?php echo $list["value"];?>">수정하기</a>
-                                        </td>
-                                        <td>
-                                            <a herf="#">삭제하기 </a>
                                         </td>
                                     </tr>
                                     <?php } ?>
