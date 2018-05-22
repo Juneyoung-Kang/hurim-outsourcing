@@ -10,6 +10,7 @@ define("CMD_REQUEST_SUBMIT_ORDER", 3);
 define("CMD_REQUEST_ADD_LIST", 4);
 define("CMD_REQUEST_UPDATE_LIST", 5);
 define("CMD_REQUEST_DONE_ORDER", 6);
+define("CMD_REQUEST_DELETE_PRODUCT", 7);
 
 switch ((int) $_POST['cmd']) {
     case CMD_REQUEST_LOGOUT:
@@ -223,7 +224,15 @@ switch ((int) $_POST['cmd']) {
             $idx = $_POST['idx'];
             $sql = "update order_list set done_chk='Y' where idx='$idx'";
             $mysqli->query($sql);
-            die("<script>alert('성공적으로 수정되었습니다!'); window.location.href='/admin/index.php';</script>");
+            die("<script>alert('성공적으로 처리되었습니다!'); window.location.href='/admin/index.php';</script>");
+        }
+        break;
+    case CMD_REQUEST_DELETE_PRODUCT:
+        if (isset($_POST['submit'])){
+            $value = $_POST['value'];
+            $sql = "delete from product_list where value='$value'";
+            $mysqli->query($sql);
+            die("<script>alert('성공적으로 삭제되었습니다!'); window.location.href='/admin/add.php';</script>");
         }
         break;
 }
