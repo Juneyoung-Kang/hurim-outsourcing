@@ -8,6 +8,7 @@ define("CMD_REQUEST_LOGIN", 1);
 define("CMD_REQUEST_ADD_ORDER", 2);
 define("CMD_REQUEST_SUBMIT_ORDER", 3);
 define("CMD_REQUEST_ADD_LIST", 4);
+define("CMD_REQUEST_UPDATE_LIST", 5);
 
 switch ((int) $_POST['cmd']) {
     case CMD_REQUEST_LOGOUT:
@@ -176,6 +177,44 @@ switch ((int) $_POST['cmd']) {
             values('$name', '$price', '$value', '$max_q', '$min_q', '$max_width', '$min_width', '$max_length', '$min_length', '$fixed1', '$fixed2', '$fixed3', '$fixed4', '$fixed5', '$fixed6', '$stock_chk')";
             $mysqli->query($sql);
             die("<script>alert('성공적으로 입력되었습니다!'); window.location.href='/admin/add.php';</script>");
+        }
+        break;
+    case CMD_REQUEST_UPDATE_LIST:
+        if (isset($_POST['submit'])){
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $value = $_POST['value'];
+            $stock_chk = $_POST['stock_chk'];
+            $max_q = $_POST['max_q'];
+            $min_q = $_POST['min_q'];
+            if($max_q<$min_q){
+                die("<script>alert('최소 수량이 최대 수량보다 큽니다!'); history.go(-1);</script>");
+            }
+            $max_width = $_POST['max_width'];
+            $min_width = $_POST['min_width'];
+            if($max_width<$min_width){
+                die("<script>alert('최소 가로이 최대 가로보다 큽니다!'); history.go(-1);</script>");
+            }
+            $max_length = $_POST['max_length'];
+            $min_length = $_POST['min_length'];
+            if($max_length<$min_length){
+                die("<script>alert('최소 세로가 최대 세로보다 큽니다!'); history.go(-1);</script>");
+            }
+
+            if($_POST['fixed1']==NULL){
+                $sql = "update product_list set name='$name', price='$price', value='$value', max_q='$max_q', min_q='$min_q', max_width='$max_width', min_width='$min_width', max_length='$max_length', min_length='$min_length', stock_chk='$stock_chk' where value='$value'";
+                $mysqli->query($sql);
+                die("<script>alert('성공적으로 수정되었습니다!'); window.location.href='/admin/add.php';</script>");
+            }else 
+                $fixed1 = $_POST['fixed1'];
+                $fixed2 = $_POST['fixed2'];
+                $fixed3 = $_POST['fixed3'];
+                $fixed4 = $_POST['fixed4'];
+                $fixed5 = $_POST['fixed5'];
+                $fixed6 = $_POST['fixed6'];
+            $sql = "update product_list set name='$name', price='$price', value='$value', max_q='$max_q', min_q='$min_q', max_width='$max_width', min_width='$min_width', max_length='$max_length', min_length='$min_length', stock_chk='$stock_chk', fixed1='$fixed1', fixed2='$fixed2', fixed3='$fixed3', fixed4='$fixed4', fixed5='$fixed5', fixed6='$fixed6' where value='$value'";
+            $mysqli->query($sql);
+            die("<script>alert('성공적으로 수정되었습니다!'); window.location.href='/admin/add.php';</script>");
         }
         break;
 }

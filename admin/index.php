@@ -168,6 +168,7 @@
                                         <th>가격</th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -188,6 +189,9 @@
                                         </td>
                                         <td>
                                             <a href="javascript:printIt(document.getElementById('printme').innerHTML)">인쇄</a>
+                                        </td>
+                                        <td>
+                                            <?php if($list["done_chk"]==Y){echo('<a class="ui blue label">완료</a>');}else{echo('<a class="ui red label">미완료</a>');}?>
                                         </td>
                                     </tr>
                                     <div id="popup<?php echo $list["idx"];?>" class="overlay">
