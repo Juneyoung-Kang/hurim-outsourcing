@@ -80,6 +80,54 @@
                 left: 0;
                 right: 0;
             }
+            .overlay {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.7);
+                transition: opacity 500ms;
+                visibility: hidden;
+                opacity: 0;
+            }
+            .overlay:target {
+                visibility: visible;
+                opacity: 1;
+            }
+
+            .popup {
+                margin: 70px auto;
+                padding: 20px;
+                background: #fff;
+                border-radius: 5px;
+                width: 30%;
+                position: relative;
+                transition: all 5s ease-in-out;
+            }
+
+            .popup h2 {
+                margin-top: 0;
+                color: #333;
+                font-family: Tahoma, Arial, sans-serif;
+            }
+            .popup .close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                transition: all 200ms;
+                font-size: 30px;
+                font-weight: bold;
+                text-decoration: none;
+                color: #333;
+            }
+            .popup .close:hover {
+                color: #000000;
+            }
+            .popup .content {
+                max-height: 30%;
+                overflow: auto;
+            }
         </style>
         <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css'>
     </head>
@@ -136,12 +184,30 @@
                                         <td><?php echo $list["width"].'x'.$list["length"].'x'.$list["quantity"];?></td>
                                         <td><?php echo $list["product"];?></td>
                                         <td>
-                                            <a herf="#">상세보기</a>
+                                            <a href="#popup<?php echo $list["idx"];?>">상세보기</a>
                                         </td>
                                         <td>
-                                            <a herf="#">인쇄</a>
+                                            <a href="javascript:printIt(document.getElementById('printme').innerHTML)">인쇄</a>
                                         </td>
                                     </tr>
+                                    <div id="popup<?php echo $list["idx"];?>" class="overlay">
+                                        <div class="popup" id="printme">
+                                            <h2>견적번호 : <?php echo $list["idx"];?>번</h2>
+                                            <a class="close" href="#">&times;</a>
+                                            <div class="content">
+                                                <div class "ui divider"></div>
+                                                <h5>주문자명 : <?php echo $list["name"];?></h5>
+                                                <h5>연락처 : <?php echo $list["contact"];?></h5>
+                                                <h5>이메일 : <?php echo $list["email"];?></h5>
+                                                <hr>
+                                                <h5>주문상품 : <?php echo $list["product"];?></h5>
+                                                <h5>주문량 : <?php echo $list["width"].'x'.$list["length"].'x'.$list["quantity"];?></h5>
+                                                <h5>주문일시 : <?php echo $list["log"];?></h5>
+                                                <hr>
+                                                <h5>기타 요구사항 : <?php echo $list["other"];?></h5>
+                                            </div>
+                                        </div>
+                                    </div> 
                                     <?php } ?>
                                 </tbody>
                             </table>
@@ -151,17 +217,33 @@
                 <button class="ui primary button" style="margin-top:15px;">
                     완료된 견적으로 처리
                 </button>
-            </div>
-
+            </div>                           
             <div class="ui center aligned basic segment" id="footer">
                 2018
                 <a href="https://github.com/Juneyoung-Kang">Juneyoung KANG</a>
             </div>
         </div>
 
+        <script type="text/javascript">
+            var win=null;
+            function printIt(printThis)  {
+                win = window.open();
+                self.focus();
+                win.document.open();
+                win.document.write('<'+'html'+'><'+'head'+'><'+'style'+'>');
+                win.document.write('body, td { font-family: Verdana; font-size: 10pt;}');
+                win.document.write('<'+'/'+'style'+'><'+'/'+'head'+'><'+'body'+'>');
+                win.document.write(printThis);
+                win.document.write('<'+'/'+'body'+'><'+'/'+'html'+'>');
+                win.document.close();
+                win.print();
+                win.close();
+            }
+        </script>
+
         <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js'></script>
-        <script src="js/index.js"></script>
+        <script src="../js/index.js"></script>
     </body>
 
 </html>
