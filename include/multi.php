@@ -9,6 +9,7 @@ define("CMD_REQUEST_ADD_ORDER", 2);
 define("CMD_REQUEST_SUBMIT_ORDER", 3);
 define("CMD_REQUEST_ADD_LIST", 4);
 define("CMD_REQUEST_UPDATE_LIST", 5);
+define("CMD_REQUEST_DONE_ORDER", 6);
 
 switch ((int) $_POST['cmd']) {
     case CMD_REQUEST_LOGOUT:
@@ -215,6 +216,14 @@ switch ((int) $_POST['cmd']) {
             $sql = "update product_list set name='$name', price='$price', value='$value', max_q='$max_q', min_q='$min_q', max_width='$max_width', min_width='$min_width', max_length='$max_length', min_length='$min_length', stock_chk='$stock_chk', fixed1='$fixed1', fixed2='$fixed2', fixed3='$fixed3', fixed4='$fixed4', fixed5='$fixed5', fixed6='$fixed6' where value='$value'";
             $mysqli->query($sql);
             die("<script>alert('성공적으로 수정되었습니다!'); window.location.href='/admin/add.php';</script>");
+        }
+        break;
+    case CMD_REQUEST_DONE_ORDER:
+        if (isset($_POST['submit'])){
+            $idx = $_POST['idx'];
+            $sql = "update order_list set done_chk='Y' where idx='$idx'";
+            $mysqli->query($sql);
+            die("<script>alert('성공적으로 수정되었습니다!'); window.location.href='/admin/index.php';</script>");
         }
         break;
 }

@@ -158,14 +158,15 @@
                 <div class="column">
                     <div class="row">
                         <div class="column">
+                            <form method="post" action="/include/multi.php">
                             <table class="ui table">
                                 <thead>
                                     <tr>
-                                        <th></th>
                                         <th>견적번호</th>
                                         <th>제품명</th>
                                         <th>가로X세로X수량</th>
                                         <th>가격</th>
+                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -177,9 +178,6 @@
                                     while($list = $sql->fetch_array()){
                                 ?>
                                     <tr>
-                                        <td>
-                                            <input type="checkbox" tabindex="0">
-                                        </td>
                                         <td><?php echo $list["idx"];?></td>
                                         <td><?php echo $list["product"];?></td>
                                         <td><?php echo $list["width"].'x'.$list["length"].'x'.$list["quantity"];?></td>
@@ -189,6 +187,9 @@
                                         </td>
                                         <td>
                                             <a href="javascript:printIt(document.getElementById('printme').innerHTML)">인쇄</a>
+                                        </td>
+                                        <td>
+                                            <a href="edit_order.php?idx=<?php echo $list["idx"];?>">상태 수정</a>
                                         </td>
                                         <td>
                                             <?php if($list["done_chk"]==Y){echo('<a class="ui blue label">완료</a>');}else{echo('<a class="ui red label">미완료</a>');}?>
@@ -215,12 +216,10 @@
                                     <?php } ?>
                                 </tbody>
                             </table>
+                        </form>
                         </div>
                     </div>
                 </div>
-                <button class="ui primary button" style="margin-top:15px;">
-                    완료된 견적으로 처리
-                </button>
             </div>                           
             <div class="ui center aligned basic segment" id="footer">
                 2018
