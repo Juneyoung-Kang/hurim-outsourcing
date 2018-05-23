@@ -56,10 +56,6 @@ switch ((int) $_POST['cmd']) {
             if (empty($_POST["product"])) {
                 die("<script>alert('empty'); history.go(-1);</script>");
             } else {
-                // 안되는 거 체크
-                // $query = "select max_width from product_list where product = '".$_POST['product']."'";
-
-
                 // ADD_ORDER
                 $product = $_POST['product'];
                 $width = $_POST['width'];
@@ -90,10 +86,21 @@ switch ((int) $_POST['cmd']) {
 
                 $_SESSION['session'] = $session;
 
+                // 만약 선택한 것이 최소량보다 작을 떄
+                $query = mq("select * from product_list where value = '".$_POST['product']."'");
+                $list = $query->fetch_array();
+                if($width<$list['min_width'] || $width>$list['max_width']){
+                    die("<script>alert('가로가 너무 짧거나 길어요! 해당 상품의 가로는 ".$list['min_width']."~".$list['max_width']."mm 입니다.'); history.go(-1);</script>");
+                }else if($length<$list['min_length'] || $length>$list['max_length']){
+                    die("<script>alert('세로가 너무 짧거나 길어요! 해당 상품의 세로는 ".$list['min_length']."~".$list['max_length']."mm 입니다.'); history.go(-1);</script>");
+                }else if($quantity<$list['min_q'] || $quantity>$list['max_q']){
+                    die("<script>alert('수량이 너무 많거나 적어요! 해당 상품의 수량는 최소 ".$list['min_q']."개부터 ".$list['max_q']."개 입니다.'); history.go(-1);</script>");
+                }else{
                 $sql = "insert into order_session(session_id, product, width, length, quantity) 
                     values('$session','$product','$width','$length','$quantity')";
                 $mysqli->query($sql);
                 die("<script>alert('성공적으로 입력되었습니다!'); window.location.href='/';</script>");
+                }
             }
         }
         break;
