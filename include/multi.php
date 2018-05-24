@@ -106,6 +106,9 @@ switch ((int) $_POST['cmd']) {
         break;
     case CMD_REQUEST_SUBMIT_ORDER: // done!
         if (isset($_POST["submit"])) {
+            if (empty($_POST["name"])) {
+                die("<script>alert('empty'); history.go(-1);</script>");
+            }else
             $name = $_POST['name'];
             $contact = $_POST['contact'];
             $email = $_POST['email'];

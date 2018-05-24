@@ -159,7 +159,7 @@
             $sql = mq("select * from product_list order by idx asc");  
             while($list = $sql->fetch_array()){
           ?>
-              <div class="item" data-value="<?php echo $list[" value "];?>">
+              <div class="item" data-value="<?php echo $list["value"];?>">
                 <?php echo $list["name"];?>
               </div>
               <?php } ?>
@@ -287,14 +287,14 @@
                     <label>주문자</label>
                     <div class="two fields">
                       <div class="field">
-                        <input type="text" name="name" placeholder="주문자명">
+                        <input type="text" name="name" placeholder="주문자명" required>
                       </div>
                       <div class="field">
-                        <input type="text" name="contact" placeholder="연락처">
+                        <input type="text" name="contact" placeholder="연락처" required>
                       </div>
                     </div>
                     <div class="field">
-                      <input type="email" name="email" placeholder="이메일">
+                      <input type="email" name="email" placeholder="이메일" required>
                     </div>
                   </div>
                   <h4 class="ui dividing header">기타 요구사항</h4>

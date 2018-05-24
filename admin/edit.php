@@ -237,7 +237,7 @@
                             </div>
                           </div>
                             <div class="field">
-                                <input type="radio" name="stock_chk" placeholder="최소 수량" required value="Y" <?php if($list["stock_chk"]=='Y')echo "checked"?>> 품절
+                                <input type="radio" name="stock_chk" placeholder="최소 수량" value="Y" <?php if($list["stock_chk"]=='Y')echo "checked"?>> 품절
                             </div>
                           <button class="ui button submit primary" tabindex="0" name="submit" type="submit">항목 수정하기</button>
                           <input type="hidden" name="cmd" value="5">
