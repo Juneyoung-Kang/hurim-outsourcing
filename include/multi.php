@@ -1,3 +1,4 @@
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <?php
 session_start();
 include("dbconfig.php");
