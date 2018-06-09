@@ -87,6 +87,13 @@ switch ((int) $_POST['cmd']) {
 
                 $_SESSION['session'] = $session;
 
+                // value 추가
+                $query0 = mq("select * from product_list where value = '".$_POST['product']."'");
+                $list0 = $query0->fetch_array();
+
+                $price = $list0['price'];
+                $final_price = (double)$price * $width * $length * $quantity;
+
                 // 만약 선택한 것이 최소량보다 작을 떄
                 $query = mq("select * from product_list where value = '".$_POST['product']."'");
                 $list = $query->fetch_array();
@@ -97,8 +104,8 @@ switch ((int) $_POST['cmd']) {
                 }else if($quantity<$list['min_q'] || $quantity>$list['max_q']){
                     die("<script>alert('수량이 너무 많거나 적어요! 해당 상품의 수량는 최소 ".$list['min_q']."개부터 ".$list['max_q']."개 입니다.'); history.go(-1);</script>");
                 }else{
-                $sql = "insert into order_session(session_id, product, width, length, quantity) 
-                    values('$session','$product','$width','$length','$quantity')";
+                $sql = "insert into order_session(session_id, product, price, width, length, quantity) 
+                    values('$session','$product','$final_price','$width','$length','$quantity')";
                 $mysqli->query($sql);
                 die("<script>alert('성공적으로 입력되었습니다!'); window.location.href='/';</script>");
                 }
@@ -139,8 +146,8 @@ switch ((int) $_POST['cmd']) {
 
             $sql = mq("select * from order_session where session_id = '$session'");
             while($list = $sql->fetch_array()){
-                $sql2 = "insert into order_list(name, contact, email, other, product, width, length, quantity) 
-                values('$name', '$contact', '$email', '$other', '".$list['product']."', '".$list['width']."', '".$list['length']."', '".$list['quantity']."')";
+                $sql2 = "insert into order_list(name, contact, email, other, product, price, width, length, quantity) 
+                values('$name', '$contact', '$email', '$other', '".$list['product']."', '".$list['price']."', '".$list['width']."', '".$list['length']."', '".$list['quantity']."')";
                 $mysqli->query($sql2);
             }
             die("<script>alert('성공적으로 견적이 등록되었습니다!'); window.location.href='/';</script>");

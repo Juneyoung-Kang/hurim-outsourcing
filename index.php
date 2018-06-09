@@ -249,7 +249,7 @@
                             <?php echo $result["width"].'x'.$result["length"].'x'.$result["quantity"];?>
                           </td>
                           <td>
-                            <?php echo $result["product"];?>
+                            <?php echo $result["price"];?>원
                           </td>
                         </tr>
                         <?php } ?>

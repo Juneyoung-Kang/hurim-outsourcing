@@ -182,7 +182,7 @@
                                         <td><?php echo $list["idx"];?></td>
                                         <td><?php echo $list["product"];?></td>
                                         <td><?php echo $list["width"].'x'.$list["length"].'x'.$list["quantity"];?></td>
-                                        <td><?php echo $list["product"];?></td>
+                                        <td><?php echo $list["price"];?>원</td>
                                         <td>
                                             <a href="#popup<?php echo $list["idx"];?>">상세보기</a>
                                         </td>
