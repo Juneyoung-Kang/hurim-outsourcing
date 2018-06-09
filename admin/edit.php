@@ -180,7 +180,7 @@
                                 <input type="text" name="name" placeholder="제품명" required value="<?php echo $list["name"]?>">
                               </div>
                               <div class="field">
-                                <input type="number" name="price" placeholder="단가 가격" required value="<?php echo $list["price"]?>">
+                                <input type="number" name="price" placeholder="단가 가격" required value="<?php echo $list["price"]?>" step="0.0000001">
                               </div>
                               <div class="field">
                                 <input type="number" name="value" placeholder="고유 번호" required value="<?php echo $list["value"]?>">
@@ -237,6 +237,7 @@
                             </div>
                           </div>
                             <div class="field">
+                                <input type='hidden' value='0' name='stock_chk'>
                                 <input type="checkbox" name="stock_chk" placeholder="최소 수량" value="Y" <?php if($list["stock_chk"]=='Y')echo "checked"?>> 품절
                             </div>
                           <button class="ui button submit primary" tabindex="0" name="submit" type="submit">항목 수정하기</button>

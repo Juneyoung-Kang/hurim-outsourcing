@@ -222,7 +222,7 @@
                                 <input type="text" name="name" placeholder="제품명" required>
                               </div>
                               <div class="field">
-                                <input type="number" name="price" placeholder="단가 가격" required>
+                                <input type="number" name="price" placeholder="단가 가격" required step="0.0000001">
                               </div>
                               <div class="field">
                                 <input type="number" name="value" placeholder="고유 번호" required>

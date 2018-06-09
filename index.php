@@ -156,7 +156,7 @@
           <div class="default text">목재 종류 및 두께</div>
           <div class="menu">
             <?php
-            $sql = mq("select * from product_list order by idx asc");  
+            $sql = mq("select * from product_list where stock_chk='N' order by idx asc");  
             while($list = $sql->fetch_array()){
           ?>
               <div class="item" data-value="<?php echo $list["value"];?>">
@@ -273,7 +273,13 @@
                     주문서 작성
                   </div>
                   <div class="content" style="float:right; color:red; font-size:20px;">
-                    합계 : 원
+                    합계 : <?php
+                      $session = session_id();
+                      $sql3 = mq("select sum(price) from order_session where session_id = '$session'");  
+                      $result = $sql3->fetch_array();
+                      $alpha=print_r($result['sum(price)'], true);
+                      echo $alpha;
+                    ?>원
                   </div>
                 </h2>
               </div>
